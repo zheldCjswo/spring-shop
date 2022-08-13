@@ -7,7 +7,6 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.EnumMap;
 
 @Entity
 @Table(name="item")
@@ -22,7 +21,7 @@ public class Item {
     private Long id;
 
     @Column(nullable = false, length = 50)
-    private String itemName;
+    private String itemNm;
 
     @Column(name="price", nullable = false)
     private int price;
