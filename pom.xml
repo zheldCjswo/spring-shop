@@ -55,12 +55,12 @@
         <dependency>
             <groupId>com.querydsl</groupId>
             <artifactId>querydsl-jpa</artifactId>
-            <version>4.3.1</version>
+            <version>5.0.0</version>
         </dependency>
         <dependency>
             <groupId>com.querydsl</groupId>
             <artifactId>querydsl-apt</artifactId>
-            <version>4.3.1</version>
+            <version>5.0.0</version>
         </dependency>
         <!-- querydsl -->
     </dependencies>
@@ -79,6 +79,24 @@
                     </excludes>
                 </configuration>
             </plugin>
+            <!-- querydsl Qdomain 객체 자동 생성 -->
+            <plugin>
+                <groupId>com.mysema.maven</groupId>
+                <artifactId>apt-maven-plugin</artifactId>
+                <version>1.1.3</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>process</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>target/generated-sources/java</outputDirectory>
+                            <processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- querydsl Qdomain 객체 자동 생성 -->
         </plugins>
     </build>
 
