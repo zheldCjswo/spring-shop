@@ -96,4 +96,14 @@ class ItemRepositoryTest {
             System.out.println("item.toString() = " + item.toString());
         }
     }
+
+    @Test
+    @DisplayName("nativeQuery 속성을 이용한 상품 조회 리스트")
+    public void findByItemDetailByNative(){
+        this.createItemList();
+        List<Item> itemList = itemRepository.findByItemDetail("테스트 상품");
+        for(Item item : itemList){
+            System.out.println("item.toString() = " + item.toString());
+        }
+    }
 }
