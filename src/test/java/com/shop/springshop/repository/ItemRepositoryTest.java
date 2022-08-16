@@ -1,13 +1,18 @@
 package com.shop.springshop.repository;
 
+import com.querydsl.jpa.impl.JPAQuery;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.shop.springshop.constant.ItemSellSatus;
 import com.shop.springshop.entity.Item;
+import com.shop.springshop.entity.QItem;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -17,6 +22,10 @@ class ItemRepositoryTest {
 
     @Autowired
     ItemRepository itemRepository;
+    
+    //영속성 컨텍스트 사용을 위한 설정
+    @PersistenceContext
+    EntityManager em;
 
     @Test
     @DisplayName("상품 저장 리스트")
@@ -102,6 +111,23 @@ class ItemRepositoryTest {
     public void findByItemDetailByNative(){
         this.createItemList();
         List<Item> itemList = itemRepository.findByItemDetail("테스트 상품");
+        for(Item item : itemList){
+            System.out.println("item.toString() = " + item.toString());
+        }
+    }
+    
+    @Test
+    @DisplayName("querydsl 조회 테스트1")
+    public void queryDslTest(){
+        this.createItemList();
+        JPAQueryFactory jpaQueryFactory = new JPAQueryFactory(em); //Factory를 사용하여 쿼리 생성
+        QItem qItem = QItem.item; //자동생성된 QItem 사용
+        JPAQuery<Item> query = jpaQueryFactory.selectFrom(qItem)
+                .where(qItem.itemSellSatus.eq(ItemSellSatus.SELL))
+                .where(qItem.itemDetail.like("%"+"테스트 상품"+"%"))
+                .orderBy(qItem.price.desc());
+        List<Item> itemList = query.fetch();
+        
         for(Item item : itemList){
             System.out.println("item.toString() = " + item.toString());
         }
