@@ -66,4 +66,24 @@ class ItemRepositoryTest {
             System.out.println("item.toString() = " + item.toString());
         }
     }
+    
+    @Test
+    @DisplayName("가격 LessThan 테스트")
+    public void findByPriceLessThanTest() {
+        this.createItemList();
+        List<Item> itemList = itemRepository.findByPriceLessThan(100000);
+        for(Item item : itemList){
+            System.out.println("item.toString() = " + item.toString());
+        }
+    }
+    
+    @Test
+    @DisplayName("가격 내림차순 조회 테스트")
+    public void findByPriceLessThanOrderByPriceDesc(){
+        this.createItemList();
+        List<Item> itemList = itemRepository.findByPriceLessThanOrderByPriceDesc(10005);
+        for(Item item : itemList){
+            System.out.println("item.toString() = " + item.toString());
+        }
+    }
 }
