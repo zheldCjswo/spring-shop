@@ -71,6 +71,14 @@
             <version>3.12.0</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+
+        <!-- Spring Boot Devtools Add -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+        </dependency>
+        <!-- Spring Boot Devtools Add -->
+
     </dependencies>
 
     <build>
