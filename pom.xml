@@ -87,6 +87,13 @@
         </dependency>
         <!-- thymeleaf-layout-dialect -->
 
+        <!-- Spring Security Add -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <!-- Spring Security Add -->
+
     </dependencies>
 
     <build>
