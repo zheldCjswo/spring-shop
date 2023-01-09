@@ -2,9 +2,7 @@ package com.shop.springshop.entity;
 
 import com.shop.springshop.constant.Role;
 import com.shop.springshop.dto.MemberFormDto;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
@@ -12,8 +10,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "member")
 @Getter
-@Setter
 @ToString
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
 
     @Id
@@ -33,7 +31,17 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder){
+    @Builder
+    public Member(String name, String email, String password, String address){
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.address = address;
+    }
+
+    
+    //Entity가 Dto를 의존하는 것은 좋지 않음
+    /*public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder){
         Member member = new Member();
         member.setName(memberFormDto.getName());
         member.setEmail(memberFormDto.getEmail());
@@ -42,5 +50,5 @@ public class Member {
         member.setPassword(password);
         member.setRole(Role.USER);
         return member;
-    }
+    }*/
 }
