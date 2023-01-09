@@ -2,16 +2,16 @@ package com.shop.springshop.dto;
 
 import com.shop.springshop.entity.Member;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Getter
 @Setter
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class MemberFormDto {
 
-    private final PasswordEncoder passwordEncoder;
     private String name;
 
     private String email;
