@@ -94,6 +94,13 @@
         </dependency>
         <!-- Spring Security Add -->
 
+        <!-- spring validation Add -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+        <!-- spring validation Add -->
+
     </dependencies>
 
     <build>
