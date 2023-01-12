@@ -34,4 +34,17 @@ class MemberServiceTest {
         return memberFormDto.createMember(passwordEncoder);
     }
 
+    @Test
+    @DisplayName("회원가입 테스트")
+    public void saveMemberTest(){
+        Member member = createMember();
+        Member saveMember = memberService.saveMember(member);
+
+        assertEquals(member.getName(), saveMember.getName());
+        assertEquals(member.getEmail(), saveMember.getEmail());
+        assertEquals(member.getAddress(), saveMember.getAddress());
+        assertEquals(member.getPassword(), saveMember.getPassword());
+        assertEquals(member.getRole(), saveMember.getRole());
+    }
+
 }
