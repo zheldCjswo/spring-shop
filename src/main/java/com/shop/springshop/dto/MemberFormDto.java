@@ -1,5 +1,6 @@
 package com.shop.springshop.dto;
 
+import com.shop.springshop.constant.Role;
 import com.shop.springshop.entity.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,6 +38,7 @@ public class MemberFormDto {
                 .email(this.getEmail())
                 .password(passwordEncoder.encode(this.getPassword()))
                 .address(this.getAddress())
+                .role(Role.USER)
                 .build();
     }
 }
