@@ -38,7 +38,7 @@ public class MemberFormDto {
                 .email(this.getEmail())
                 .password(passwordEncoder.encode(this.getPassword()))
                 .address(this.getAddress())
-                .role(Role.USER)
+                .role(Role.ADMIN)
                 .build();
     }
 }
