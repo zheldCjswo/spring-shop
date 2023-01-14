@@ -4,8 +4,11 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.shop.springshop.constant.ItemSellSatus;
 import com.shop.springshop.dto.ItemSearchDto;
+import com.shop.springshop.dto.MainItemDto;
+import com.shop.springshop.dto.QMainItemDto;
 import com.shop.springshop.entity.Item;
 import com.shop.springshop.entity.QItem;
+import com.shop.springshop.entity.QItemImg;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -86,5 +89,49 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{
 
         return new PageImpl<>(results, pageable, total);
 
+    }
+
+    private BooleanExpression itemNmLike(String searchQuery){
+        return StringUtils.isEmpty(searchQuery) ? null : QItem.item.itemNm.like("%" + searchQuery + "%");
+    }
+    @Override
+    public Page<MainItemDto> getMainItemPage(ItemSearchDto itemSearchDto, Pageable pageable) {
+        QItem item = QItem.item;
+        QItemImg itemImg = QItemImg.itemImg;
+
+        List<MainItemDto> results =
+                queryFactory
+                        .select(
+                                new QMainItemDto(
+                                        item.id,
+                                        item.itemNm,
+                                        item.itemDetail,
+                                        itemImg.imgUrl,
+                                        item.price
+                                )
+                        )
+                        .from(itemImg)
+                        .join(itemImg.item, item)
+                        .where(itemImg.repimgYn.eq("Y"))
+                        .where(itemNmLike(itemSearchDto.getSearchQuery()))
+                        .orderBy(item.id.desc())
+                        .offset(pageable.getOffset())
+                        .limit(pageable.getPageSize())
+                        .fetch();
+
+        long total = queryFactory
+                .select(
+                        itemImg.count()
+                )
+                .from(itemImg)
+                .join(itemImg.item, item)
+                .where(itemImg.repimgYn.eq("Y"))
+                .where(itemNmLike(itemSearchDto.getSearchQuery()))
+                .orderBy(item.id.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetchOne();
+
+        return new PageImpl<>(results, pageable, total);
     }
 }
