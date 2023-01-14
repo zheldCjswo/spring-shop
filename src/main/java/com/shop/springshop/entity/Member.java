@@ -1,9 +1,7 @@
 package com.shop.springshop.entity;
 
 import com.shop.springshop.constant.Role;
-import com.shop.springshop.dto.MemberFormDto;
 import lombok.*;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 
@@ -40,7 +38,7 @@ public class Member extends BaseEntity {
         this.role = role;
     }
 
-    
+
     //Entity가 Dto를 의존하는 것은 좋지 않음
     /*public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder){
         Member member = new Member();
