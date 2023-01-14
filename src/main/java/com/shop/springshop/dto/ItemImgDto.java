@@ -4,6 +4,9 @@ import com.shop.springshop.entity.ItemImg;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter @Setter
 public class ItemImgDto {
 
@@ -16,6 +19,7 @@ public class ItemImgDto {
     private String imgUrl;
 
     private String repimgYn;
+
 
     public static ItemImgDto of(ItemImg itemImg){
         ItemImgDto itemImgDto = new ItemImgDto();
