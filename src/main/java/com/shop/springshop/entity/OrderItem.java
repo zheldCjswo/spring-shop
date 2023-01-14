@@ -28,8 +28,8 @@ public class OrderItem extends BaseEntity {
 
     private int count;
 
-    private LocalDateTime regTime;
+    //private LocalDateTime regTime;
 
-    private LocalDateTime updateTime;
+    //private LocalDateTime updateTime;
 
 }
