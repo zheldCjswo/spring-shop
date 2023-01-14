@@ -1,6 +1,7 @@
 package com.shop.springshop.entity;
 
 import com.shop.springshop.constant.ItemSellSatus;
+import com.shop.springshop.dto.ItemFormDto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -39,4 +40,12 @@ public class Item extends BaseEntity {
     //private LocalDateTime regTime; //등록 시간
 
     //private LocalDateTime updateTime; //수정 시간
+
+    public void updateItem(String itemNm, int price, int stockNumber, String itemDetail, ItemSellSatus itemSellSatus){
+        this.itemNm = itemNm;
+        this.price = price;
+        this.stockNumber = stockNumber;
+        this.itemDetail = itemDetail;
+        this.itemSellSatus = itemSellSatus;
+    }
 }
