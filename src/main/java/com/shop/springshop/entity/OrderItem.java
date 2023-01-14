@@ -1,5 +1,6 @@
 package com.shop.springshop.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,7 +9,8 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "order_item")
-@Getter @Setter
+@Getter
+@Setter
 public class OrderItem extends BaseEntity {
 
     @Id
