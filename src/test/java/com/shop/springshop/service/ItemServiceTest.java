@@ -1,6 +1,6 @@
 package com.shop.springshop.service;
 
-import com.shop.springshop.constant.ItemSellSatus;
+import com.shop.springshop.constant.ItemSellStatus;
 import com.shop.springshop.dto.ItemFormDto;
 import com.shop.springshop.entity.Item;
 import com.shop.springshop.entity.ItemImg;
@@ -56,7 +56,7 @@ class ItemServiceTest {
     void saveItem() throws Exception {
         ItemFormDto itemFormDto = new ItemFormDto();
         itemFormDto.setItemNm("테스트 상품");
-        itemFormDto.setItemSellSatus(ItemSellSatus.SELL);
+        itemFormDto.setItemSellSatus(ItemSellStatus.SELL);
         itemFormDto.setItemDetail("테스트 상품입니다.");
         itemFormDto.setPrice(1000);
         itemFormDto.setStockNumber(10);
@@ -70,7 +70,7 @@ class ItemServiceTest {
                 .orElseThrow(EntityExistsException::new);
 
         assertEquals(itemFormDto.getItemNm(), item.getItemNm());
-        assertEquals(itemFormDto.getItemSellSatus(), item.getItemSellSatus());
+        assertEquals(itemFormDto.getItemSellSatus(), item.getItemSellStatus());
         assertEquals(itemFormDto.getItemDetail(), item.getItemDetail());
         assertEquals(itemFormDto.getPrice(), item.getPrice());
         assertEquals(itemFormDto.getStockNumber(), item.getStockNumber());

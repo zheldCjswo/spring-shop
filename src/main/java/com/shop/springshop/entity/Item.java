@@ -1,13 +1,12 @@
 package com.shop.springshop.entity;
 
-import com.shop.springshop.constant.ItemSellSatus;
-import com.shop.springshop.dto.ItemFormDto;
+import com.shop.springshop.constant.ItemSellStatus;
+import com.shop.springshop.exception.OutOfStockException;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name="item")
@@ -35,17 +34,28 @@ public class Item extends BaseEntity {
     private String itemDetail; //상품 상세 설명
 
     @Enumerated(EnumType.STRING)
-    private ItemSellSatus itemSellSatus; //상품 판매 상태
+    private ItemSellStatus itemSellStatus; //상품 판매 상태
 
     //private LocalDateTime regTime; //등록 시간
 
     //private LocalDateTime updateTime; //수정 시간
 
-    public void updateItem(String itemNm, int price, int stockNumber, String itemDetail, ItemSellSatus itemSellSatus){
+    public void updateItem(String itemNm, int price, int stockNumber, String itemDetail, ItemSellStatus itemSellStatus){
         this.itemNm = itemNm;
         this.price = price;
         this.stockNumber = stockNumber;
         this.itemDetail = itemDetail;
-        this.itemSellSatus = itemSellSatus;
+        this.itemSellStatus = itemSellStatus;
     }
+
+    public void removeStock(int stockNumber){
+        int restStock = this.stockNumber - stockNumber;
+        if(restStock < 0){
+            throw new OutOfStockException("재고가 없습니다. 재고 수량 : " + restStock);
+        }
+
+        this.stockNumber = restStock;
+
+    }
+
 }

@@ -1,5 +1,5 @@
 package com.shop.springshop.constant;
 
-public enum ItemSellSatus {
+public enum ItemSellStatus {
     SELL, SOLD_OUT
 }

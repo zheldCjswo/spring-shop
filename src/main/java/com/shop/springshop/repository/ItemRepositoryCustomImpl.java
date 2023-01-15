@@ -2,7 +2,7 @@ package com.shop.springshop.repository;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.shop.springshop.constant.ItemSellSatus;
+import com.shop.springshop.constant.ItemSellStatus;
 import com.shop.springshop.dto.ItemSearchDto;
 import com.shop.springshop.dto.MainItemDto;
 import com.shop.springshop.dto.QMainItemDto;
@@ -27,7 +27,7 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{
         this.queryFactory = new JPAQueryFactory(em);
     }
 
-    private BooleanExpression searchSellStatusEq(ItemSellSatus searchSellStatus){
+    private BooleanExpression searchSellStatusEq(ItemSellStatus searchSellStatus){
         return searchSellStatus == null ? null : QItem.item.itemSellSatus.eq(searchSellStatus);
     }
 

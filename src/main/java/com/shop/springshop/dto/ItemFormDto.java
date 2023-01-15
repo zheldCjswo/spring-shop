@@ -1,6 +1,6 @@
 package com.shop.springshop.dto;
 
-import com.shop.springshop.constant.ItemSellSatus;
+import com.shop.springshop.constant.ItemSellStatus;
 import com.shop.springshop.entity.Item;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,7 +28,7 @@ public class ItemFormDto {
     @NotNull(message = "재고는 필수 입력 값입니다.")
     private Integer stockNumber;
 
-    private ItemSellSatus itemSellSatus;
+    private ItemSellStatus  itemSellStatus;
 
     private List<ItemImgDto> itemImgDtoList = new ArrayList<>();
 

@@ -1,6 +1,6 @@
 package com.shop.springshop.dto;
 
-import com.shop.springshop.constant.ItemSellSatus;
+import com.shop.springshop.constant.ItemSellStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,7 +9,7 @@ public class ItemSearchDto {
 
     private String searchDateType;
 
-    private ItemSellSatus searchSellStatus;
+    private ItemSellStatus searchSellStatus;
 
     private String searchBy;
 

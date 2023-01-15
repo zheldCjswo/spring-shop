@@ -1,6 +1,6 @@
 package com.shop.springshop.entity;
 
-import com.shop.springshop.constant.ItemSellSatus;
+import com.shop.springshop.constant.ItemSellStatus;
 import com.shop.springshop.repository.ItemRepository;
 import com.shop.springshop.repository.MemberRepository;
 import com.shop.springshop.repository.OrderItemRepository;
@@ -39,7 +39,7 @@ class OrderTest {
         item.setItemNm("상품테스트");
         item.setPrice(1000);
         item.setItemDetail("상품설명");
-        item.setItemSellSatus(ItemSellSatus.SELL);
+        item.setItemSellStatus(ItemSellStatus.SELL);
         item.setStockNumber(100);
         item.setRegTime(LocalDateTime.now());
         item.setUpdateTime(LocalDateTime.now());

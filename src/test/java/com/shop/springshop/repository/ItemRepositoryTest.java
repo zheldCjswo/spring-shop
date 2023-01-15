@@ -3,7 +3,7 @@ package com.shop.springshop.repository;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.shop.springshop.constant.ItemSellSatus;
+import com.shop.springshop.constant.ItemSellStatus;
 import com.shop.springshop.entity.Item;
 import com.shop.springshop.entity.QItem;
 import org.apache.commons.lang3.StringUtils;
@@ -40,7 +40,7 @@ class ItemRepositoryTest {
         item.setItemNm("테스트 상품");
         item.setPrice(10000);
         item.setItemDetail("테스트 상품 상세 설명");
-        item.setItemSellSatus(ItemSellSatus.SELL);
+        item.setItemSellStatus(ItemSellStatus.SELL);
         item.setStockNumber(100);
         item.setRegTime(LocalDateTime.now());
         item.setUpdateTime(LocalDateTime.now());
@@ -54,7 +54,7 @@ class ItemRepositoryTest {
             item.setItemNm("테스트 상품" +  i);
             item.setPrice(10000+i);
             item.setItemDetail("테스트 상품 상세 내용" + i);
-            item.setItemSellSatus(ItemSellSatus.SELL);
+            item.setItemSellStatus(ItemSellStatus.SELL);
             item.setStockNumber(100);
             item.setRegTime(LocalDateTime.now());
             item.setUpdateTime(LocalDateTime.now());
@@ -129,7 +129,7 @@ class ItemRepositoryTest {
         JPAQueryFactory jpaQueryFactory = new JPAQueryFactory(em); //Factory를 사용하여 쿼리 생성
         QItem qItem = QItem.item; //자동생성된 QItem 사용
         JPAQuery<Item> query = jpaQueryFactory.selectFrom(qItem)
-                .where(qItem.itemSellSatus.eq(ItemSellSatus.SELL))
+                .where(qItem.itemSellSatus.eq(ItemSellStatus.SELL))
                 .where(qItem.itemDetail.like("%"+"테스트 상품"+"%"))
                 .orderBy(qItem.price.desc());
         List<Item> itemList = query.fetch();
@@ -145,7 +145,7 @@ class ItemRepositoryTest {
             item.setItemNm("테스트 상품" +  i);
             item.setPrice(10000+i);
             item.setItemDetail("테스트 상품 상세 내용" + i);
-            item.setItemSellSatus(ItemSellSatus.SELL);
+            item.setItemSellStatus(ItemSellStatus.SELL);
             item.setStockNumber(100);
             item.setRegTime(LocalDateTime.now());
             item.setUpdateTime(LocalDateTime.now());
@@ -157,7 +157,7 @@ class ItemRepositoryTest {
             item.setItemNm("테스트 상품" +  i);
             item.setPrice(10000+i);
             item.setItemDetail("테스트 상품 상세 내용" + i);
-            item.setItemSellSatus(ItemSellSatus.SOLD_OUT);
+            item.setItemSellStatus(ItemSellStatus.SOLD_OUT);
             item.setStockNumber(0);
             item.setRegTime(LocalDateTime.now());
             item.setUpdateTime(LocalDateTime.now());
@@ -179,8 +179,8 @@ class ItemRepositoryTest {
         booleanBuilder.and(item.itemDetail.like("%"+itemDetail+"%"));
         booleanBuilder.and(item.price.gt(price));
 
-        if(StringUtils.equals(itemSellStat, ItemSellSatus.SELL.toString())){
-            booleanBuilder.and(item.itemSellSatus.eq(ItemSellSatus.SELL));
+        if(StringUtils.equals(itemSellStat, ItemSellStatus.SELL.toString())){
+            booleanBuilder.and(item.itemSellSatus.eq(ItemSellStatus.SELL));
         }
 
         Pageable pageable = PageRequest.of(0,5);

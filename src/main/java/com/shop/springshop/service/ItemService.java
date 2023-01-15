@@ -66,7 +66,7 @@ public class ItemService {
     public Long updateItem(ItemFormDto itemFormDto, List<MultipartFile> multipartFileList) throws Exception {
         Item item = itemRepository.findById(itemFormDto.getId())
                 .orElseThrow(EntityNotFoundException::new);
-        item.updateItem(itemFormDto.getItemNm(), itemFormDto.getPrice(), itemFormDto.getStockNumber(), itemFormDto.getItemDetail(), itemFormDto.getItemSellSatus());
+        item.updateItem(itemFormDto.getItemNm(), itemFormDto.getPrice(), itemFormDto.getStockNumber(), itemFormDto.getItemDetail(), itemFormDto.getItemSellStatus());
 
         List<Long> itemImgIds = itemFormDto.getItemImgIds();
 
