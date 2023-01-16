@@ -1,6 +1,7 @@
 package com.shop.springshop.service;
 
 import com.shop.springshop.constant.ItemSellStatus;
+import com.shop.springshop.constant.OrderStatus;
 import com.shop.springshop.dto.OrderDto;
 import com.shop.springshop.entity.Item;
 import com.shop.springshop.entity.Member;
@@ -49,7 +50,7 @@ class OrderServiceTest {
         return itemRepository.save(item);
     }
 
-    public Member ssveMember(){
+    public Member saveMember(){
         Member member = Member.builder()
                 .email("test@test.com")
                 .build();
@@ -60,7 +61,7 @@ class OrderServiceTest {
     @DisplayName("주문 테스트")
     public void order(){
         Item item = this.saveItem();
-        Member member = this.ssveMember();
+        Member member = this.saveMember();
 
         OrderDto orderDto = new OrderDto();
         orderDto.setCount(10);
@@ -76,5 +77,25 @@ class OrderServiceTest {
         int totalPrice = orderDto.getCount() * item.getPrice();
 
         assertEquals(totalPrice, order.getTotalPrice());
+    }
+
+    @Test
+    @DisplayName("주문 취소 테스트")
+    public void cancelOrder(){
+        Item item = saveItem();
+        Member member = saveMember();
+
+        OrderDto orderDto = new OrderDto();
+        orderDto.setCount(10);
+        orderDto.setItemId(item.getId());
+        Long orderId = orderService.order(orderDto, member.getEmail());
+
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(EntityNotFoundException::new);
+
+        orderService.cancelOrder(orderId);
+
+        assertEquals(OrderStatus.CANCEL, order.getOrderStatus());
+        assertEquals(100, item.getStockNumber());
     }
 }
