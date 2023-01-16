@@ -2,6 +2,8 @@ package com.shop.springshop.service;
 
 import com.shop.springshop.dto.CartDetailDto;
 import com.shop.springshop.dto.CartItemDto;
+import com.shop.springshop.dto.CartOrderDto;
+import com.shop.springshop.dto.OrderDto;
 import com.shop.springshop.entity.Cart;
 import com.shop.springshop.entity.CartItem;
 import com.shop.springshop.entity.Item;
@@ -11,6 +13,7 @@ import com.shop.springshop.repository.CartRepositoy;
 import com.shop.springshop.repository.ItemRepository;
 import com.shop.springshop.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.util.StringUtils;
@@ -28,6 +31,8 @@ public class CartService {
     private final MemberRepository memberRepository;
     private final CartRepositoy cartRepositoy;
     private final CartItemRepository cartItemRepository;
+
+    private final OrderService orderService;
 
     public Long addCart(CartItemDto cartItemDto, String email){
         Item item = itemRepository.findById(cartItemDto.getItemId())
@@ -94,6 +99,27 @@ public class CartService {
                 .orElseThrow(EntityNotFoundException::new);
 
         cartItemRepository.delete(cartItem);
+    }
+
+    public Long orderCartItem(List<CartOrderDto> cartOrderDtoList, String email){
+        List<OrderDto> orderDtos = new ArrayList<>();
+        for(CartOrderDto cartOrderDto : cartOrderDtoList){
+            CartItem cartItem = cartItemRepository.findById(cartOrderDto.getCartItemId())
+                    .orElseThrow(EntityNotFoundException::new);
+
+            OrderDto orderDto = new OrderDto();
+            orderDto.setItemId(cartItem.getItem().getId());
+            orderDto.setCount(cartItem.getCount());
+            orderDtos.add(orderDto);
+        }
+
+        Long orderId = orderService.orders(orderDtos, email);
+
+        for(CartOrderDto cartOrderDto : cartOrderDtoList){
+            CartItem cartItem = cartItemRepository.findById(cartOrderDto.getCartItemId())
+                    .orElseThrow(EntityNotFoundException::new);
+        }
+        return orderId;
     }
 
 }
